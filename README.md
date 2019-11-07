@@ -44,3 +44,5 @@ then in /etc/logrotate.d
     dateext
 }
 ```
+
+test
