@@ -10,7 +10,7 @@ exports.handler = function (data) {
     var params = _.rest(data.message.split(' '), 1);
     var username = '';
     if (params.length < 1) {
-        chatMessage('/me No user specified.');
+        chatMessage('English please.');
     } else {
         username_uf = params.join(' ').trim();
         username = username_uf.replace('@', '');
