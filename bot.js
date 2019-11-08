@@ -10,7 +10,7 @@ runBot(false, config.auth);
 
 var roomHasActiveMods = false;
 var skipTimer;
-var motd_i = 0
+var motd_i = 0;
 
 /**
  * Keep track of the length of the waitlist,
@@ -510,7 +510,7 @@ function runBot(error, auth) {
 
                                 // Only police this if there aren't any mods around
                                 var combined_max_length = settings['maxlength'] + settings['maxlength_buffer'];
-                                if (settings['timeguard'] && data.media.duration > combined_max_length) {
+                                if (settings['timeguard'] && data.media.duration > combined_max_length && !permitted.includes(data.currentDJ.id)) {
                                     console.warn('[SKIP] Skipped ' + data.currentDJ.username + ' spinning a song of ' + data.media.duration + ' seconds');
                                     chatMessage('Sorry @' + data.currentDJ.username + ', this song is over our room\'s maximum song length (' + sec_to_str(settings['maxlength']) + ').');
                                     bot.moderateForceSkip();
@@ -521,8 +521,11 @@ function runBot(error, auth) {
                                                 mod_user_id: bot.getUser().id
                                                 };
                                                 Karma.create(userData);
-                                                }
-
+				} else if (permitted.includes(data.currentDJ.id)) {
+					console.warn('[TEST] ' + data.currentDJ.username + ' with ID ' + data.currentDJ.id + ' removed from permitted list.');
+					permitted.splice(permitted.indexOf(data.currentDJ.id), 1);
+					console.warn('[TEST] Permitted list is now: ' + permitted); 
+				}
                                                 }
 
                                                 });

@@ -87,6 +87,7 @@ module.exports = function (options) {
     move_queue = [];
     add_to_waitlist_history = {};
     room_locked = false; /* XXX: Is there a way for us to get the room locked status on connect? */
+	permitted = [];
 
     // @TODO - Is it better to declare these directly in the model?
     Song.hasMany(Play);
